@@ -1,4 +1,9 @@
+import 'package:demo_app_qib/provider/banking_provider.dart';
+import 'package:demo_app_qib/provider/special_service_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
+import 'banking_section.dart';
 
 class DashBoard extends StatefulWidget {
   @override
@@ -6,9 +11,33 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
+  Future<void> getBanking(BuildContext con) async {
+    final bankingVal = Provider.of<BankingProvider>(context, listen: false);
+    if (bankingVal.getBankingList.isEmpty) {
+      final res = await bankingVal.getBankingDetails();
+      if (!res['status']) {
+        print("${res['status']}");
+      }
+    }
+  }
+  Future<void> getSpecialService(BuildContext con) async {
+    final specialServiceVal = Provider.of<SpecialServiceProvider>(context, listen: false);
+    if (specialServiceVal.getSpecialServicesList.isEmpty) {
+      final res = await specialServiceVal.getSpecialServiceDetails();
+      if (!res['status']) {
+        print("${res['status']}");
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.orange[700],
+        title: Text("DashBoard"),
+        leading:       Icon(Icons.menu, color: Colors.black,size: 30.0,),
+      ),
         body: Container(
           decoration: new BoxDecoration(
               gradient: new LinearGradient(
@@ -20,18 +49,9 @@ class _DashBoardState extends State<DashBoard> {
                 ],
               )),
           child: SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: ListView(
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Icon(Icons.menu, color: Colors.white,size: 52.0,),
-                      ],
-                    ),
-                  ),
+
                   Padding(
                     padding: const EdgeInsets.all(18.0),
                     child: Text(
@@ -44,6 +64,60 @@ class _DashBoardState extends State<DashBoard> {
                       textAlign: TextAlign.center,
                     ),
                   ),
+                  FutureBuilder(
+                      future: getBanking(context),
+                      builder: (con, snap) => snap.connectionState == ConnectionState.waiting
+                          ? Shimmer.fromColors(
+                          child: GridView.count(
+                            primary: false,
+                            shrinkWrap: true,
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                            crossAxisSpacing: 6.0,
+                            crossAxisCount: 3,
+                            childAspectRatio: (100 / 100),
+                            children: List.generate(5, (index) {
+                              return Card(
+                                elevation: 5,
+                                margin: EdgeInsets.all(8),
+                                child: Padding(
+                                  padding: EdgeInsets.all(5),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                          flex: 3,
+                                          child: Container(
+                                            margin: EdgeInsets.only(left: 8),
+                                            decoration:  new BoxDecoration(
+                                                shape: BoxShape.circle
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text(
+                                                  '',
+                                                  style: TextStyle(
+                                                      fontSize: 15, fontWeight: FontWeight.bold),
+                                                ),
+                                                Text(
+                                                  '',
+                                                  maxLines: 1,
+                                                  style: TextStyle(color: Colors.grey, fontSize: 10),
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                              ],
+                                            ),
+                                          )),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }),
+                          ),
+                          baseColor: Colors.grey[400],
+                          highlightColor: Colors.grey[200])
+                          : BankingSection()),
+
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Center(
