@@ -1,9 +1,9 @@
+import 'package:demo_app_qib/function/height_width_function.dart';
 import 'package:demo_app_qib/home/special_services_section.dart';
 import 'package:demo_app_qib/home/user_section.dart';
 import 'package:demo_app_qib/provider/banking_provider.dart';
 import 'package:demo_app_qib/provider/special_service_provider.dart';
 import 'package:demo_app_qib/provider/user_provider.dart';
-import 'package:demo_app_qib/widget/height_width_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
