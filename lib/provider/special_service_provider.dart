@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 
 import '../url_manage.dart';
 
-class SpecialServiceProvider with ChangeNotifier{
+class SpecialServiceProvider with ChangeNotifier {
   List<SpecialServiceModel> specialServicesList = [];
 
   List<SpecialServiceModel> get getSpecialServicesList {
@@ -17,7 +17,6 @@ class SpecialServiceProvider with ChangeNotifier{
 
   Future<Map<String, dynamic>> getSpecialServiceDetails() async {
     Map<String, dynamic> responseMap = {'status': false, 'msg': ''};
-
 
     try {
       final res = await http.get('$getServiceSection', headers: {
@@ -33,7 +32,6 @@ class SpecialServiceProvider with ChangeNotifier{
       specialServicesList.clear();
       response.forEach((id) {
         specialServicesList.add(SpecialServiceModel(
-
             id: id['id'].toString(),
             specialServices: id['specialServices'].toString()));
       });
@@ -51,5 +49,4 @@ class SpecialServiceProvider with ChangeNotifier{
       return responseMap;
     }
   }
-
 }

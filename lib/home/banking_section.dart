@@ -12,13 +12,10 @@ class _BankingSectionState extends State<BankingSection> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-         Text(
+        Text(
           "Banking Options",
           style: TextStyle(
-              color: Colors.black,
-              fontSize: 28.0,
-              fontWeight: FontWeight.bold
-          ),
+              color: Colors.black, fontSize: 28.0, fontWeight: FontWeight.bold),
           textAlign: TextAlign.start,
         ),
         Consumer<BankingProvider>(
@@ -32,33 +29,28 @@ class _BankingSectionState extends State<BankingSection> {
             children: List.generate(bank.getBankingList.length, (index) {
               var items = bank.getBankingList[index];
               return InkWell(
-
                 splashColor: Colors.orange[300],
                 radius: 100.0,
-                highlightColor:  Colors.orange[300],
-
-                child:
-                Container(
-                  decoration:  new BoxDecoration(
-                    color: Colors.orange[300],
-                    shape: BoxShape.circle,
-                     boxShadow:[
-                      BoxShadow(
-                      color: Colors.black38,
-                      //extend the shadow
-                      offset: Offset(
-                        15.0, // Move to right 10  horizontally
-                        15.0, // Move to bottom 10 Vertically
-                      ),)]
-                  ),
-
-
+                highlightColor: Colors.orange[300],
+                child: Container(
+                  decoration: new BoxDecoration(
+                      color: Colors.orange[300],
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black38,
+                          //extend the shadow
+                          offset: Offset(
+                            15.0, // Move to right 10  horizontally
+                            15.0, // Move to bottom 10 Vertically
+                          ),
+                        )
+                      ]),
                   margin: EdgeInsets.all(8),
                   child: Padding(
                     padding: EdgeInsets.all(0),
                     child: Column(
                       children: <Widget>[
-
                         Expanded(
                             flex: 2,
                             child: Container(
@@ -74,7 +66,8 @@ class _BankingSectionState extends State<BankingSection> {
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 15,
-                                          fontWeight: FontWeight.bold),textAlign: TextAlign.center,
+                                          fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
                                     ),
                                   ),
                                   const SizedBox(
@@ -86,8 +79,8 @@ class _BankingSectionState extends State<BankingSection> {
                                       "${items.id} variety options",
                                       maxLines: 1,
                                       style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 11,
+                                        color: Colors.grey,
+                                        fontSize: 11,
                                       ),
                                       overflow: TextOverflow.ellipsis,
                                     ),

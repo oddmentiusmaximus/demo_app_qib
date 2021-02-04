@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 
 import '../url_manage.dart';
 
-class UserProvider with ChangeNotifier{
+class UserProvider with ChangeNotifier {
   List<UserModel> userList = [];
 
   List<UserModel> get getUserList {
@@ -17,7 +17,6 @@ class UserProvider with ChangeNotifier{
 
   Future<Map<String, dynamic>> getUserDetails() async {
     Map<String, dynamic> responseMap = {'status': false, 'msg': ''};
-
 
     try {
       final res = await http.get('$getUserSection', headers: {
@@ -33,12 +32,11 @@ class UserProvider with ChangeNotifier{
       userList.clear();
       response.forEach((id) {
         userList.add(UserModel(
-
             id: id['id'].toString(),
             accountNo: id['accountNo'].toString(),
-         address: id['address'].toString(),
-        dateOfBirth: id['dateOfBirth'],
-        userName: id['userName']));
+            address: id['address'].toString(),
+            dateOfBirth: id['dateOfBirth'],
+            userName: id['userName']));
       });
       responseMap['status'] = true;
       responseMap['msg'] = 'Done';
@@ -54,5 +52,4 @@ class UserProvider with ChangeNotifier{
       return responseMap;
     }
   }
-
 }

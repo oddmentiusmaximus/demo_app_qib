@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 import '../url_manage.dart';
 
-class BankingProvider with ChangeNotifier{
+class BankingProvider with ChangeNotifier {
   List<BankingModel> bankingList = [];
 
   List<BankingModel> get getBankingList {
@@ -16,7 +16,6 @@ class BankingProvider with ChangeNotifier{
 
   Future<Map<String, dynamic>> getBankingDetails() async {
     Map<String, dynamic> responseMap = {'status': false, 'msg': ''};
-
 
     try {
       final res = await http.get('$getBankingSection', headers: {
@@ -32,9 +31,8 @@ class BankingProvider with ChangeNotifier{
       bankingList.clear();
       response.forEach((id) {
         bankingList.add(BankingModel(
-
             id: id['id'].toString(),
-bankingSection: id['bankingSection'].toString()));
+            bankingSection: id['bankingSection'].toString()));
       });
       responseMap['status'] = true;
       responseMap['msg'] = 'Done';
@@ -50,5 +48,4 @@ bankingSection: id['bankingSection'].toString()));
       return responseMap;
     }
   }
-
 }

@@ -24,8 +24,10 @@ class _DashBoardState extends State<DashBoard> {
       }
     }
   }
+
   Future<void> getSpecialService(BuildContext con) async {
-    final specialServiceVal = Provider.of<SpecialServiceProvider>(context, listen: false);
+    final specialServiceVal =
+        Provider.of<SpecialServiceProvider>(context, listen: false);
     if (specialServiceVal.getSpecialServicesList.isEmpty) {
       final res = await specialServiceVal.getSpecialServiceDetails();
       if (!res['status']) {
@@ -33,6 +35,7 @@ class _DashBoardState extends State<DashBoard> {
       }
     }
   }
+
   Future<void> getUser(BuildContext con) async {
     final userVal = Provider.of<UserProvider>(context, listen: false);
     if (userVal.getUserList.isEmpty) {
@@ -46,45 +49,49 @@ class _DashBoardState extends State<DashBoard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.orange[700],
-        title: Text("DashBoard"),
-        leading:       Icon(Icons.menu, color: Colors.black,size: 30.0,),
-      ),
+        appBar: AppBar(
+          backgroundColor: Colors.orange[700],
+          title: Text("DashBoard"),
+          leading: Icon(
+            Icons.menu,
+            color: Colors.black,
+            size: 30.0,
+          ),
+        ),
         body: Container(
           decoration: new BoxDecoration(
               gradient: new LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color.fromARGB(255, 25,178,238),
-                  Color.fromARGB(255, 21,236,229)
-                ],
-              )),
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color.fromARGB(255, 25, 178, 238),
+              Color.fromARGB(255, 21, 236, 229)
+            ],
+          )),
           child: SafeArea(
               child: ListView(
-                children: <Widget>[
-
-                  Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Text(
-                      "Welcome, to Demo App for QIB",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 28.0,
-                          fontWeight: FontWeight.bold
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  FutureBuilder(
-                      future: getBanking(context),
-                      builder: (con, snap) => snap.connectionState == ConnectionState.waiting
-                          ? Shimmer.fromColors(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Text(
+                  "Welcome, to Demo App for QIB",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 28.0,
+                      fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              FutureBuilder(
+                  future: getBanking(context),
+                  builder: (con, snap) => snap.connectionState ==
+                          ConnectionState.waiting
+                      ? Shimmer.fromColors(
                           child: GridView.count(
                             primary: false,
                             shrinkWrap: true,
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 10),
                             crossAxisSpacing: 6.0,
                             crossAxisCount: 3,
                             childAspectRatio: (100 / 100),
@@ -100,23 +107,29 @@ class _DashBoardState extends State<DashBoard> {
                                           flex: 3,
                                           child: Container(
                                             margin: EdgeInsets.only(left: 8),
-                                            decoration:  new BoxDecoration(
-                                                shape: BoxShape.circle
-                                            ),
+                                            decoration: new BoxDecoration(
+                                                shape: BoxShape.circle),
                                             child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: <Widget>[
                                                 Text(
                                                   '',
                                                   style: TextStyle(
-                                                      fontSize: 15, fontWeight: FontWeight.bold),
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.bold),
                                                 ),
                                                 Text(
                                                   '',
                                                   maxLines: 1,
-                                                  style: TextStyle(color: Colors.grey, fontSize: 10),
-                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                      color: Colors.grey,
+                                                      fontSize: 10),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                 ),
                                               ],
                                             ),
@@ -129,70 +142,73 @@ class _DashBoardState extends State<DashBoard> {
                           ),
                           baseColor: Colors.grey[400],
                           highlightColor: Colors.grey[200])
-                          : BankingSection()),
-                  FutureBuilder(
-                      future: getSpecialService(context),
-                      builder: (con, snap) => snap.connectionState == ConnectionState.waiting
+                      : BankingSection()),
+              FutureBuilder(
+                  future: getSpecialService(context),
+                  builder: (con, snap) =>
+                      snap.connectionState == ConnectionState.waiting
                           ? Container(
-                        margin: EdgeInsets.all(8),
-                        padding: EdgeInsets.all(5),
-
-                        child: CircularProgressIndicator(
-                        backgroundColor: Colors.red,
-                      ),
-                          )
+                              margin: EdgeInsets.all(8),
+                              padding: EdgeInsets.all(5),
+                              child: CircularProgressIndicator(
+                                backgroundColor: Colors.red,
+                              ),
+                            )
                           : SpecialService()),
-                  FutureBuilder(
-                      future: getUser(context),
-                      builder: (con, snap) => snap.connectionState == ConnectionState.waiting
-                          ? Shimmer.fromColors(
+              FutureBuilder(
+                  future: getUser(context),
+                  builder: (con, snap) => snap.connectionState ==
+                          ConnectionState.waiting
+                      ? Shimmer.fromColors(
                           child: Container(
-                            height: buildHeight(context)*0.3,
+                            height: buildHeight(context) * 0.3,
                             child: Card(
-
-                                  elevation: 5,
-                                  margin: EdgeInsets.all(8),
-                                  child: Padding(
-                                    padding: EdgeInsets.all(5),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Expanded(
-                                            flex: 3,
-                                            child: Container(
-                                              margin: EdgeInsets.only(left: 8),
-                                              decoration:  new BoxDecoration(
-                                                  shape: BoxShape.circle
+                              elevation: 5,
+                              margin: EdgeInsets.all(8),
+                              child: Padding(
+                                padding: EdgeInsets.all(5),
+                                child: Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                        flex: 3,
+                                        child: Container(
+                                          margin: EdgeInsets.only(left: 8),
+                                          decoration: new BoxDecoration(
+                                              shape: BoxShape.circle),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text(
+                                                '',
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: <Widget>[
-                                                  Text(
-                                                    '',
-                                                    style: TextStyle(
-                                                        fontSize: 15, fontWeight: FontWeight.bold),
-                                                  ),
-                                                  Text(
-                                                    '',
-                                                    maxLines: 1,
-                                                    style: TextStyle(color: Colors.grey, fontSize: 10),
-                                                    overflow: TextOverflow.ellipsis,
-                                                  ),
-                                                ],
+                                              Text(
+                                                '',
+                                                maxLines: 1,
+                                                style: TextStyle(
+                                                    color: Colors.grey,
+                                                    fontSize: 10),
+                                                overflow: TextOverflow.ellipsis,
                                               ),
-                                            )),
-                                      ],
-                                    ),
-                                  ),
+                                            ],
+                                          ),
+                                        )),
+                                  ],
                                 ),
+                              ),
+                            ),
                           ),
                           baseColor: Colors.grey[400],
                           highlightColor: Colors.grey[200])
-                          : UserSection()),
-                ],
-              )
-          ),
-        )
-    );
+                      : UserSection()),
+            ],
+          )),
+        ));
   }
 }

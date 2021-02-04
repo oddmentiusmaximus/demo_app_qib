@@ -22,30 +22,27 @@ class UserSection extends StatelessWidget {
         ),
         Consumer<UserProvider>(
           builder: (con, user, _) => Container(
-
             padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
             height: 300,
             width: double.maxFinite,
             child: Card(
-
               elevation: 5,
               child: Container(
                 decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Colors.green, Colors.blue])
-                ),
+                    gradient:
+                        LinearGradient(colors: [Colors.green, Colors.blue])),
                 padding: EdgeInsets.all(7),
                 child: Stack(
+                    children: List.generate(user.userList.length, (index) {
+                  var date = user.userList[index].dateOfBirth;
+                  DateTime parseDate =
+                      new DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                          .parse(date);
+                  var inputDate = DateTime.parse(parseDate.toString());
+                  var outputFormat = DateFormat('MM/dd/yyyy hh:mm a');
+                  var outputDate = outputFormat.format(inputDate);
 
-                    children: List.generate(user.userList.length, (index)  {
-                     var date = user.userList[index].dateOfBirth;
-                      DateTime parseDate =
-                      new DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(date);
-                      var inputDate = DateTime.parse(parseDate.toString());
-                      var outputFormat = DateFormat('MM/dd/yyyy hh:mm a');
-                      var outputDate = outputFormat.format(inputDate);
-
-                      return Column(
+                  return Column(
                     children: [
                       Align(
                         alignment: Alignment.centerRight,
@@ -120,7 +117,6 @@ class UserSection extends StatelessWidget {
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 1,
                                         ),
-
                                         SizedBox(
                                           width: 20,
                                         )
@@ -163,7 +159,8 @@ class UserSection extends StatelessWidget {
                                           width: 20,
                                         )
                                       ],
-                                    ) ,SizedBox(
+                                    ),
+                                    SizedBox(
                                       height: 50,
                                     ),
                                     Row(
@@ -196,13 +193,11 @@ class UserSection extends StatelessWidget {
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 1,
                                         ),
-
                                         SizedBox(
                                           width: 20,
                                         )
                                       ],
                                     ),
-
                                   ],
                                 ))
                           ],
