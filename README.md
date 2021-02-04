@@ -4,3 +4,4 @@ Used Providers to fetch Data from a mock api which i created on backend and crea
 Used two kinds of loaders which wait until the data has been fetched from the api .
 1)CircularProgressIndicator,
 2)ShimmerEffect
+
