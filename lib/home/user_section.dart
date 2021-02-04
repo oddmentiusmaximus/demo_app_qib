@@ -24,7 +24,7 @@ class UserSection extends StatelessWidget {
           builder: (con, user, _) => Container(
 
             padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
-            height: buildHeight(context) * 0.35,
+            height: 300,
             width: double.maxFinite,
             child: Card(
 
@@ -44,7 +44,7 @@ class UserSection extends StatelessWidget {
                       var inputDate = DateTime.parse(parseDate.toString());
                       var outputFormat = DateFormat('MM/dd/yyyy hh:mm a');
                       var outputDate = outputFormat.format(inputDate);
-print("$outputFormat}");
+
                       return Column(
                     children: [
                       Align(

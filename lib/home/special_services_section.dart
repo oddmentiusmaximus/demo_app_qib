@@ -59,7 +59,7 @@ class SpecialService extends StatelessWidget {
                                         Text(
                                           "${ service.getSpecialServicesList[index].specialServices.toUpperCase()}",
                                           style: TextStyle(
-                                              color: Colors.deepPurple,
+                                              color: Colors.black,
                                               fontWeight: FontWeight.bold,
                                               fontSize: 14.0
                                           ),textAlign: TextAlign.center,
