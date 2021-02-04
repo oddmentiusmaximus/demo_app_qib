@@ -1,5 +1,7 @@
+import 'package:demo_app_qib/home/special_services_section.dart';
 import 'package:demo_app_qib/provider/banking_provider.dart';
 import 'package:demo_app_qib/provider/special_service_provider.dart';
+import 'package:demo_app_qib/widget/height_width_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
@@ -117,162 +119,18 @@ class _DashBoardState extends State<DashBoard> {
                           baseColor: Colors.grey[400],
                           highlightColor: Colors.grey[200])
                           : BankingSection()),
+                  FutureBuilder(
+                      future: getSpecialService(context),
+                      builder: (con, snap) => snap.connectionState == ConnectionState.waiting
+                          ? Container(
+                        margin: EdgeInsets.all(8),
+                        padding: EdgeInsets.all(5),
 
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Center(
-                      child: Wrap(
-                        spacing:20,
-                        runSpacing: 20.0,
-                        children: <Widget>[
-                          SizedBox(
-                            width:160.0,
-                            height: 160.0,
-                            child: Card(
-
-                              color: Color.fromARGB(255,21, 21, 21),
-                              elevation: 2.0,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.0)
-                              ),
-                              child:Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        SizedBox(
-                                          height: 10.0,
-                                        ),
-                                        Text(
-                                          "Transfers",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20.0
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 5.0,
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width:160.0,
-                            height: 160.0,
-                            child: Card(
-
-                              color: Colors.orange[300],
-                              elevation: 2.0,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.0)
-                              ),
-                              child:Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        SizedBox(
-                                          height: 10.0,
-                                        ),
-                                        Text(
-                                          "Payments",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20.0
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 5.0,
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width:160.0,
-                            height: 160.0,
-                            child: Card(
-
-                              color: Colors.orange[300],
-                              elevation: 2.0,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.0)
-                              ),
-                              child:Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        SizedBox(
-                                          height: 10.0,
-                                        ),
-                                        Text(
-                                          "Account Services",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20.0
-                                          ),textAlign: TextAlign.center,
-                                        ),
-                                        SizedBox(
-                                          height: 5.0,
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width:160.0,
-                            height: 160.0,
-                            child: Card(
-
-                              color: Color.fromARGB(255,21, 21, 21),
-                              elevation: 2.0,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.0)
-                              ),
-                              child:Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        SizedBox(
-                                          height: 10.0,
-                                        ),
-                                        Text(
-                                          "View All",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20.0
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 5.0,
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                              ),
-                            ),
-                          ),
-                        ],
+                        child: CircularProgressIndicator(
+                        backgroundColor: Colors.red,
                       ),
-                    ),
-                  )
+                          )
+                          : SpecialService()),
                 ],
               )
           ),
