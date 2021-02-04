@@ -9,18 +9,18 @@ import 'package:http/http.dart' as http;
 import '../url_manage.dart';
 
 class UserProvider with ChangeNotifier{
-  List<UserModel> bankingList = [];
+  List<UserModel> userList = [];
 
   List<UserModel> get getUserList {
-    return [...bankingList];
+    return [...userList];
   }
 
-  Future<Map<String, dynamic>> getBankingDetails() async {
+  Future<Map<String, dynamic>> getUserDetails() async {
     Map<String, dynamic> responseMap = {'status': false, 'msg': ''};
 
 
     try {
-      final res = await http.get('$getBankingSection', headers: {
+      final res = await http.get('$getUserSection', headers: {
         "Content-Type": "application/json",
       });
 
@@ -30,12 +30,15 @@ class UserProvider with ChangeNotifier{
         responseMap['msg'] = 'No Banners';
         return responseMap;
       }
-      bankingList.clear();
+      userList.clear();
       response.forEach((id) {
-        bankingList.add(BankingModel(
+        userList.add(UserModel(
 
             id: id['id'].toString(),
-            bankingSection: id['bankingSection'].toString()));
+            accountNo: id['accountNo'].toString(),
+         address: id['address'].toString(),
+        dateOfBirth: id['dateOfBirth'],
+        userName: id['userName']));
       });
       responseMap['status'] = true;
       responseMap['msg'] = 'Done';

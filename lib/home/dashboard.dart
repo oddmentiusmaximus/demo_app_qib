@@ -1,6 +1,8 @@
 import 'package:demo_app_qib/home/special_services_section.dart';
+import 'package:demo_app_qib/home/user_section.dart';
 import 'package:demo_app_qib/provider/banking_provider.dart';
 import 'package:demo_app_qib/provider/special_service_provider.dart';
+import 'package:demo_app_qib/provider/user_provider.dart';
 import 'package:demo_app_qib/widget/height_width_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +28,15 @@ class _DashBoardState extends State<DashBoard> {
     final specialServiceVal = Provider.of<SpecialServiceProvider>(context, listen: false);
     if (specialServiceVal.getSpecialServicesList.isEmpty) {
       final res = await specialServiceVal.getSpecialServiceDetails();
+      if (!res['status']) {
+        print("${res['status']}");
+      }
+    }
+  }
+  Future<void> getUser(BuildContext con) async {
+    final userVal = Provider.of<UserProvider>(context, listen: false);
+    if (userVal.getUserList.isEmpty) {
+      final res = await userVal.getUserDetails();
       if (!res['status']) {
         print("${res['status']}");
       }
@@ -131,6 +142,53 @@ class _DashBoardState extends State<DashBoard> {
                       ),
                           )
                           : SpecialService()),
+                  FutureBuilder(
+                      future: getUser(context),
+                      builder: (con, snap) => snap.connectionState == ConnectionState.waiting
+                          ? Shimmer.fromColors(
+                          child: Container(
+                            height: buildHeight(context)*0.3,
+                            child: Card(
+
+                                  elevation: 5,
+                                  margin: EdgeInsets.all(8),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(5),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                            flex: 3,
+                                            child: Container(
+                                              margin: EdgeInsets.only(left: 8),
+                                              decoration:  new BoxDecoration(
+                                                  shape: BoxShape.circle
+                                              ),
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Text(
+                                                    '',
+                                                    style: TextStyle(
+                                                        fontSize: 15, fontWeight: FontWeight.bold),
+                                                  ),
+                                                  Text(
+                                                    '',
+                                                    maxLines: 1,
+                                                    style: TextStyle(color: Colors.grey, fontSize: 10),
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
+                                                ],
+                                              ),
+                                            )),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                          ),
+                          baseColor: Colors.grey[400],
+                          highlightColor: Colors.grey[200])
+                          : UserSection()),
                 ],
               )
           ),

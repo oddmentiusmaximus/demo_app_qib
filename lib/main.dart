@@ -2,6 +2,7 @@ import 'package:demo_app_qib/home/dashboard.dart';
 import 'package:demo_app_qib/model/special_service_model.dart';
 import 'package:demo_app_qib/provider/banking_provider.dart';
 import 'package:demo_app_qib/provider/special_service_provider.dart';
+import 'package:demo_app_qib/provider/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider.value(value: BankingProvider()),
         ChangeNotifierProvider.value(value: SpecialServiceProvider()),
+        ChangeNotifierProvider.value(value: UserProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
