@@ -15,6 +15,7 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
+  ///Fetching BankSection Data
   Future<void> getBanking(BuildContext con) async {
     final bankingVal = Provider.of<BankingProvider>(context, listen: false);
     if (bankingVal.getBankingList.isEmpty) {
@@ -24,7 +25,7 @@ class _DashBoardState extends State<DashBoard> {
       }
     }
   }
-
+  ///Fetching SpecialServiceSection Data
   Future<void> getSpecialService(BuildContext con) async {
     final specialServiceVal =
         Provider.of<SpecialServiceProvider>(context, listen: false);
@@ -35,7 +36,7 @@ class _DashBoardState extends State<DashBoard> {
       }
     }
   }
-
+  ///Fetching UserAccount Section Data
   Future<void> getUser(BuildContext con) async {
     final userVal = Provider.of<UserProvider>(context, listen: false);
     if (userVal.getUserList.isEmpty) {
